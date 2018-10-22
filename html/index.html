@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="../js/base.js"></script>
+		<link rel="stylesheet" href="../css/init.css">
+		<!--<link rel="stylesheet" type="text/css" href="../css/quileone.css" />-->
+		<link rel="stylesheet" type="text/css" href="../css/quiletwo.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../css/quilethree.css" />-->
+		<!--<link rel="stylesheet" href="../css/swiper.css">-->
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<!--<script src="../js/swiper.js"></script>-->
+		<title>商品详情</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="info">
+				<div class="info_title">
+					产品介绍
+				</div>
+				<!--<div class="ql-container ql-snow">-->
+				<div class="ql-editor introduce">
+
+				</div>
+				<!--</div>-->
+			</div>
+			<div class="info">
+				<div class="info_title">
+					产品特点
+				</div>
+				<div class="ql-editor detailed">
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<style type="text/css">
+		.info {
+			box-sizing: border-box;
+			width: 100%;
+			height: auto;
+			padding: 0.5rem 0.24rem;
+			border-bottom: 0.01rem solid RGBA(237, 237, 237, 1);
+		}
+		
+		.info_title {
+			width: 100%;
+			height: 0.32rem;
+			box-sizing: border-box;
+			border-left: 0.08rem solid RGBA(0, 119, 255, 1);
+			font-size: 0.32rem;
+			line-height: 0.32rem;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			text-indent: 0.09rem;
+		}
+				.ql-editor{
+			font-size:0.24rem;
+			padding:0.1rem 0px;
+		}
+	</style>
+	<script type="text/javascript">
+		function GetQueryString() {
+			var obj = new Object()
+			var scan_url = encodeURI(window.location.href).split('?')[1];
+			var strs = scan_url.split('&');
+			for(var x in strs) {
+				var arr = strs[x].split('=');
+				obj[arr[0]] = arr[1]
+			}
+			return obj
+		}
+		$(document).ready(function() {　　
+			$.ajax({
+				headers: {
+					ACCESS_TOKEN: ''
+				},
+				type: "post",
+				url: "http://39.105.24.238:8080/zp/fp/getP",
+				data: {
+					id:GetQueryString().id,
+					userId:GetQueryString().userid=='0'?'':GetQueryString().userid
+				},
+				success: function(res) {
+					console.log(res)
+					$('.introduce').html(res.data.info.introduce)
+					$('.detailed').html(res.data.info.detailed)
+				},
+				error: function(res) {
+
+				},
+				complete: function(res) {
+
+				}
+			});
+		});
+	</script>
+
+</html>
